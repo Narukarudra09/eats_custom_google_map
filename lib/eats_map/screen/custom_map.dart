@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import '../../util/markers.dart';
 import '../provider/custom_map_provider.dart';
 
 class CustomMap extends StatefulWidget {
@@ -49,24 +50,45 @@ class _CustomMapState extends State<CustomMap> {
     });
   }
 
+  Set<Marker> updateMarkers(double zoom) {
+    final Set<Marker> list = {};
+
+    if (zoom > 15) {
+      // Add detailed eateries
+      list.addAll(getEateries);
+    }
+    if (zoom > 16) {
+      list.addAll(getBasicEateries);
+    }
+    if (zoom > 17) {
+      list.addAll(getGeneralEateries);
+    }
+    return list;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<CustomMapProvider>(context,listen: false);
     return Scaffold(
       body: SafeArea(
-        child: GoogleMap(
-          initialCameraPosition: _cameraPosition,
-          markers: provider.list,
-          zoomControlsEnabled: false,
-          myLocationEnabled: true,
-          myLocationButtonEnabled: true,
-          onMapCreated: (GoogleMapController controller) {
-            controller.setMapStyle(maptheme);
-            _controller.complete(controller);
-          },
-          onCameraMove: provider.onCameraMove,
-        ),
+        child: Consumer<CustomMapProvider>(
+            builder: (context, zoomProvider, child) {
+          return GoogleMap(
+            initialCameraPosition: _cameraPosition,
+            markers: updateMarkers(zoomProvider.zoom),
+            zoomControlsEnabled: false,
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
+            onMapCreated: (GoogleMapController controller) {
+              controller.setMapStyle(maptheme);
+              _controller.complete(controller);
+            },
+            onCameraMove: (CameraPosition position) {
+              zoomProvider.zoom = position.zoom;
+            },
+          );
+        }),
       ),
+
       /*floatingActionButton: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {

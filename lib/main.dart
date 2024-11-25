@@ -1,6 +1,5 @@
 import 'package:eats_custom_google_map/eats_map/provider/custom_map_provider.dart';
 import 'package:eats_custom_google_map/eats_map/screen/custom_map.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +18,7 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CustomMapProvider()),
       ],
       child: Builder(builder: (BuildContext context) {
-        return const MaterialApp(
+        return MaterialApp(
           debugShowCheckedModeBanner: false,
           home: CustomMap(),
         );

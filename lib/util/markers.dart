@@ -4,9 +4,9 @@ class Markers {}
 
 
 
-Set<Marker> getEateries() {
+final List<Marker> getEateries= [
   // Return a set of markers for detailed eateries
-  return {
+
 
      Marker(
       markerId: const MarkerId('OL\'Days Cafe'),
@@ -134,11 +134,10 @@ Set<Marker> getEateries() {
       const InfoWindow(title: 'Agra Chat Bhandar', snippet: 'General Eatery'),
       icon: AssetMapBitmap("assets/images/cafe's_marker_image/coffee.png" ,height: 45,width: 45),
     ),
-  };
-}
+];
 
-Set<Marker> getBasicEateries(){
-  return {
+final List<Marker> getBasicEateries=[
+
     Marker(
       markerId: const MarkerId('TRC'),
       position: const LatLng(25.342813673133207, 74.63939606018313),
@@ -208,14 +207,11 @@ Set<Marker> getBasicEateries(){
       infoWindow:
       InfoWindow(title: 'Chawlas Restaurant', snippet: 'General Eatery'),
     ),
+];
 
-
-  };
-}
-
-Set<Marker> getGeneralEateries() {
+final List<Marker>  getGeneralEateries=[
   // Return a set of markers for general eateries
-  return {
+
     // Add more general eateries
     const Marker(
       markerId: MarkerId('Shivay Sandwich '),
@@ -228,7 +224,8 @@ Set<Marker> getGeneralEateries() {
       position: LatLng(25.340201358663805, 74.63942542535808),
       infoWindow: InfoWindow(title: 'Kanajicafe', snippet: 'General Eatery'),
     ),
+];
 
 
-  };
-}
+
+
