@@ -1,0 +1,31 @@
+name: eats_custom_google_map
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_maps_flutter: ^2.9.0
+  geolocator: ^13.0.1
+  geocoding: ^3.0.0
+  flutter_map_math: ^0.1.7
+  flutter_svg: ^2.0.15
+  provider: ^6.1.2
+  http:
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+   - assets/custom_day.json
+   - assets/custom_night.json
+   - assets/images/cafe's_marker_image/coffee.png
+   - assets/images/restaurant's_marker_image/restaurant.png
+
