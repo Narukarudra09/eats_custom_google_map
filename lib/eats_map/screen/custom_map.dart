@@ -15,7 +15,7 @@ class CustomMap extends StatefulWidget {
 
 class _CustomMapState extends State<CustomMap> {
   final CameraPosition _cameraPosition =
-      const CameraPosition(target: LatLng(25.346251, 74.636383), zoom: 15.4746);
+      const CameraPosition(target: LatLng(25.346251, 74.636383), zoom: 14.80);
   final Completer<GoogleMapController> _controller = Completer();
   String maptheme = "";
 
@@ -57,11 +57,14 @@ class _CustomMapState extends State<CustomMap> {
       // Add detailed eateries
       list.addAll(getEateries);
     }
-    if (zoom > 16) {
+    if (zoom > 16.60) {
       list.addAll(getBasicEateries);
     }
-    if (zoom > 17) {
+    if (zoom > 17.70) {
       list.addAll(getGeneralEateries);
+    }
+    if(zoom> 18.80){
+      list.addAll(getDetailedEateries);
     }
     return list;
   }
