@@ -17,16 +17,16 @@ class _CustomMapState extends State<CustomMap> {
   final CameraPosition _cameraPosition =
       const CameraPosition(target: LatLng(25.346251, 74.636383), zoom: 14.80);
   final Completer<GoogleMapController> _controller = Completer();
-  String maptheme = "";
+  //String maptheme = "";
 
   @override
   void initState() {
     super.initState();
-    DefaultAssetBundle.of(context)
-        .loadString("assets/custom_day.json")
-        .then((Value) {
-      maptheme = Value;
-    });
+   // DefaultAssetBundle.of(context)
+   //     .loadString("assets/custom_day.json")
+    //    .then((value) {
+    //  maptheme = value;
+   // }//);
   }
 
   Future<Position> getuserlocation() async {
@@ -76,13 +76,13 @@ class _CustomMapState extends State<CustomMap> {
         child: Consumer<CustomMapProvider>(
             builder: (context, zoomProvider, child) {
           return GoogleMap(
+            cloudMapId: "12c468c8ee22fdca",
             initialCameraPosition: _cameraPosition,
-            markers: updateMarkers(zoomProvider.zoom),
+            //markers: updateMarkers(zoomProvider.zoom),
             zoomControlsEnabled: false,
             myLocationEnabled: true,
             myLocationButtonEnabled: true,
             onMapCreated: (GoogleMapController controller) {
-              controller.setMapStyle(maptheme);
               _controller.complete(controller);
             },
             onCameraMove: (CameraPosition position) {

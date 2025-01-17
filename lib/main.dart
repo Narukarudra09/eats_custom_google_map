@@ -18,7 +18,7 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CustomMapProvider()),
       ],
       child: Builder(builder: (BuildContext context) {
-        return MaterialApp(
+        return const MaterialApp(
           debugShowCheckedModeBanner: false,
           home: CustomMap(),
         );

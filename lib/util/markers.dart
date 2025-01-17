@@ -1,9 +1,9 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Markers {}
-final List<Marker> getEateries = [
 
-  // Return a set of markers for detailed eateries
+final List<Marker> getEateries = [
+  // Return a set of markers for eateries
 
   Marker(
     markerId: const MarkerId('OL\'Days Cafe'),
@@ -13,14 +13,7 @@ final List<Marker> getEateries = [
     infoWindow:
         const InfoWindow(title: 'OL\'Days Cafe', snippet: 'General Eatery'),
   ),
-  Marker(
-    markerId: const MarkerId('Love Garden Cafe'),
-    position: const LatLng(25.3563081016137, 74.6419769525528),
-    infoWindow:
-        const InfoWindow(title: 'Love Garden Cafe', snippet: 'General Eatery'),
-    icon: AssetMapBitmap("assets/images/cafe's_marker_image/coffee.png",
-        height: 45, width: 45),
-  ),
+
   Marker(
     markerId: const MarkerId('The OG\'s cafe'),
     position: const LatLng(25.3593125, 74.6469374999999),
@@ -29,8 +22,6 @@ final List<Marker> getEateries = [
     icon: AssetMapBitmap("assets/images/cafe's_marker_image/coffee.png",
         height: 45, width: 45),
   ),
-
-
 
   Marker(
     markerId: const MarkerId('The Ora Cafe'),
@@ -68,7 +59,6 @@ final List<Marker> getEateries = [
         height: 45, width: 45),
   ),
 
-
   Marker(
     markerId: const MarkerId('Agra Chat Bhandar'),
     position: const LatLng(25.344356805012616, 74.64073155119274),
@@ -82,8 +72,6 @@ final List<Marker> getEateries = [
 ];
 
 final List<Marker> getBasicEateries = [
-
-
   Marker(
     markerId: const MarkerId('NBC'),
     position: const LatLng(25.334984273821828, 74.6397911148359),
@@ -142,7 +130,6 @@ final List<Marker> getBasicEateries = [
         height: 45,
         width: 45),
   ),
-
   const Marker(
     markerId: MarkerId('Chawlas Restaurant'),
     position: LatLng(25.3465, 74.6469374999999),
@@ -153,12 +140,18 @@ final List<Marker> getBasicEateries = [
     markerId: const MarkerId('chai sutta bar'),
     position: const LatLng(25.34502387404998, 74.64116072568092),
     infoWindow:
-    const InfoWindow(title: 'chai sutta bar', snippet: 'General Eatery'),
+        const InfoWindow(title: 'chai sutta bar', snippet: 'General Eatery'),
     icon: AssetMapBitmap("assets/images/cafe's_marker_image/coffee.png",
         height: 45, width: 45),
   ),
-
-
+  Marker(
+    markerId: const MarkerId('Love Garden Cafe'),
+    position: const LatLng(25.3563081016137, 74.6419769525528),
+    infoWindow:
+        const InfoWindow(title: 'Love Garden Cafe', snippet: 'General Eatery'),
+    icon: AssetMapBitmap("assets/images/cafe's_marker_image/coffee.png",
+        height: 45, width: 45),
+  ),
 ];
 
 final List<Marker> getGeneralEateries = [
@@ -167,7 +160,7 @@ final List<Marker> getGeneralEateries = [
     markerId: const MarkerId('Eva\'s Eatery'),
     position: const LatLng(25.344940906011352, 74.64142354062281),
     infoWindow:
-    const InfoWindow(title: 'Eva\'s Eatery', snippet: 'General Eatery'),
+        const InfoWindow(title: 'Eva\'s Eatery', snippet: 'General Eatery'),
     icon: AssetMapBitmap("assets/images/cafe's_marker_image/coffee.png",
         height: 45, width: 45),
   ),
@@ -175,7 +168,7 @@ final List<Marker> getGeneralEateries = [
     markerId: const MarkerId('Sip and Gossip'),
     position: const LatLng(25.3355625, 74.6389375),
     infoWindow:
-    const InfoWindow(title: 'Sip and Gossip', snippet: 'General Eatery'),
+        const InfoWindow(title: 'Sip and Gossip', snippet: 'General Eatery'),
     icon: AssetMapBitmap("assets/images/cafe's_marker_image/coffee.png",
         height: 45, width: 45),
   ),
@@ -183,7 +176,7 @@ final List<Marker> getGeneralEateries = [
     markerId: const MarkerId('Urban Arroma'),
     position: const LatLng(25.341376103845516, 74.64008131671642),
     infoWindow:
-    const InfoWindow(title: 'Urban Arroma', snippet: 'General Eatery'),
+        const InfoWindow(title: 'Urban Arroma', snippet: 'General Eatery'),
     icon: AssetMapBitmap("assets/images/cafe's_marker_image/coffee.png",
         height: 45, width: 45),
   ),
@@ -191,20 +184,20 @@ final List<Marker> getGeneralEateries = [
     markerId: const MarkerId('Mugs4buds Cafe'),
     position: const LatLng(25.343580696650005, 74.63819754130529),
     infoWindow:
-    const InfoWindow(title: 'Mugs4buds Cafe', snippet: 'General Eatery'),
+        const InfoWindow(title: 'Mugs4buds Cafe', snippet: 'General Eatery'),
     icon: AssetMapBitmap("assets/images/cafe's_marker_image/coffee.png",
         height: 45, width: 45),
   ),
   // Add more general eateries
-
 ];
 
-final List<Marker> getDetailedEateries = [const Marker(
-  markerId: MarkerId('Shivay Sandwich '),
-  position: LatLng(25.3397125, 74.6365469),
-  infoWindow:
-  InfoWindow(title: 'Shivay Sandwich ', snippet: 'General Eatery'),
-),
+final List<Marker> getDetailedEateries = [
+  const Marker(
+    markerId: MarkerId('Shivay Sandwich '),
+    position: LatLng(25.3397125, 74.6365469),
+    infoWindow:
+        InfoWindow(title: 'Shivay Sandwich ', snippet: 'General Eatery'),
+  ),
   const Marker(
     markerId: MarkerId('eatery3'),
     position: LatLng(25.340201358663805, 74.63942542535808),
@@ -214,7 +207,7 @@ final List<Marker> getDetailedEateries = [const Marker(
     markerId: const MarkerId('IMOC'),
     position: const LatLng(25.3352299074599, 74.63856981898941),
     infoWindow:
-    const InfoWindow(title: 'IMOC Cake n Bake', snippet: 'General Eatery'),
+        const InfoWindow(title: 'IMOC Cake n Bake', snippet: 'General Eatery'),
     icon: AssetMapBitmap(
         "assets/images/restaurant's_marker_image/restaurant.png",
         height: 45,
@@ -243,7 +236,7 @@ final List<Marker> getDetailedEateries = [const Marker(
     markerId: const MarkerId('Waffie'),
     position: const LatLng(25.334671553053806, 74.63966153470226),
     infoWindow:
-    const InfoWindow(title: 'Waffie N\' More', snippet: 'General Eatery'),
+        const InfoWindow(title: 'Waffie N\' More', snippet: 'General Eatery'),
     icon: AssetMapBitmap(
         "assets/images/restaurant's_marker_image/restaurant.png",
         height: 45,
@@ -253,7 +246,7 @@ final List<Marker> getDetailedEateries = [const Marker(
     markerId: const MarkerId('Bobby\'s Cafe'),
     position: const LatLng(25.341636716849603, 74.63901916084727),
     infoWindow:
-    const InfoWindow(title: 'Bobby\'s Cafe', snippet: 'General Eatery'),
+        const InfoWindow(title: 'Bobby\'s Cafe', snippet: 'General Eatery'),
     icon: AssetMapBitmap("assets/images/cafe's_marker_image/coffee.png",
         height: 45, width: 45),
   ),
@@ -264,4 +257,5 @@ final List<Marker> getDetailedEateries = [const Marker(
         title: 'Engineer\'s House Cafe', snippet: 'General Eatery'),
     icon: AssetMapBitmap("assets/images/cafe's_marker_image/coffee.png",
         height: 45, width: 45),
-  ),];
+  ),
+];

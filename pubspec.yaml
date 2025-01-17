@@ -16,6 +16,7 @@ dependencies:
   flutter_svg: ^2.0.15
   provider: ^6.1.2
   http:
+  gcloud: ^0.8.18
 dev_dependencies:
   flutter_test:
     sdk: flutter
