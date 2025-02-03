@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../../util/markers.dart';
 import '../provider/custom_map_provider.dart';
 
@@ -15,18 +17,42 @@ class CustomMap extends StatefulWidget {
 
 class _CustomMapState extends State<CustomMap> {
   final CameraPosition _cameraPosition =
-      const CameraPosition(target: LatLng(25.346251, 74.636383), zoom: 14.80);
+  const CameraPosition(target: LatLng(25.346251, 74.636383), zoom: 14.80);
   final Completer<GoogleMapController> _controller = Completer();
-  //String maptheme = "";
+  Set<Marker> _markers = {};
 
   @override
   void initState() {
     super.initState();
-   // DefaultAssetBundle.of(context)
-   //     .loadString("assets/custom_day.json")
-    //    .then((value) {
-    //  maptheme = value;
-   // }//);
+    _fetchMarkers();
+  }
+
+  Future<void> _fetchMarkers() async {
+    final response = await http.get(Uri.parse('https://console.cloud.google.com/google/maps-apis/datasets/b1613e63-81e6-4416-a8b1-6922c51c01fd?authuser=1&hl=en&project=myeatsapp-map-function-test'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final features = data['features'];
+
+      Set<Marker> markers = features.map<Marker>((feature) {
+        final geometry = feature['geometry'];
+        final coordinates = geometry['coordinates'];
+        final lat = coordinates[1];
+        final lng = coordinates[0];
+
+        return Marker(
+          markerId: MarkerId(feature['id'].toString()),
+          position: LatLng(lat, lng),
+          infoWindow: InfoWindow(
+            title: feature['properties']['name'],
+            snippet: feature['properties']['description'],
+          ),
+        );
+      }).toSet();
+
+      setState(() {
+        _markers = markers;
+      });
+    }
   }
 
   Future<Position> getuserlocation() async {
@@ -75,154 +101,22 @@ class _CustomMapState extends State<CustomMap> {
       body: SafeArea(
         child: Consumer<CustomMapProvider>(
             builder: (context, zoomProvider, child) {
-          return GoogleMap(
-            cloudMapId: "12c468c8ee22fdca",
-            initialCameraPosition: _cameraPosition,
-            //markers: updateMarkers(zoomProvider.zoom),
-            zoomControlsEnabled: false,
-            myLocationEnabled: true,
-            myLocationButtonEnabled: true,
-            onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
-            },
-            onCameraMove: (CameraPosition position) {
-              zoomProvider.zoom = position.zoom;
-            },
-          );
-        }),
+              return GoogleMap(
+                cloudMapId: "796b32454ea42516",
+                initialCameraPosition: _cameraPosition,
+                markers: _markers, // Use the fetched markers
+                zoomControlsEnabled: false,
+                myLocationEnabled: true,
+                myLocationButtonEnabled: true,
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+                onCameraMove: (CameraPosition position) {
+                  zoomProvider.zoom = position.zoom;
+                },
+              );
+            }),
       ),
-
-      /*floatingActionButton: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          showModalBottomSheet(
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.sizeOf(context).height * 0.9,
-                minHeight: MediaQuery.sizeOf(context).height * 0.5,
-              ),
-              useSafeArea: true,
-              enableDrag: true,
-              context: context,
-              builder: (context) {
-                return Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 150,
-                          height: 8,
-                          decoration: const BoxDecoration(
-                              color: Colors.black26,
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(8),
-                                  bottomRight: Radius.circular(8))),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(
-                                Icons.arrow_back,
-                                color: Colors.black26,
-                              ),
-                            ),
-                            const Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.only(right: 16),
-                                child: TextField(
-                                  textInputAction: TextInputAction.search,
-                                  decoration: InputDecoration(
-                                    suffixIcon: Icon(
-                                      Icons.search,
-                                      color: Colors.black26,
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Colors.black26,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(18),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        const Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "Recommend",
-                                    style: TextStyle(color: Colors.black26),
-                                  ),
-                                  Expanded(
-                                    child: Divider(
-                                      thickness: 2,
-                                      color: Colors.black26,
-                                      indent: 12,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 10,),
-
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              });
-        },
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              width: 130,
-              height: 50,
-              decoration: BoxDecoration(boxShadow: const [
-                BoxShadow(
-                    color: Colors.green,
-                    blurStyle: BlurStyle.inner,
-                    spreadRadius: 10,
-                    blurRadius: 100),
-              ], borderRadius: BorderRadius.circular(10)),
-            ),
-            Container(
-              width: 130,
-              height: 50,
-              decoration: BoxDecoration(
-                  color: Colors.green, borderRadius: BorderRadius.circular(6)),
-              child: const Center(
-                child: Text(
-                  "Search",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),*/
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
